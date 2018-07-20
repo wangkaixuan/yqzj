@@ -25,7 +25,7 @@
     methods:{
       async getCaptchaCode(){
         let s = await organizationzTree('43');
-        //console.log(s.result.data);
+        console.log(s);
       }
     },
     mounted:function () {
