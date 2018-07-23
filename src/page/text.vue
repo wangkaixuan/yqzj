@@ -19,6 +19,7 @@
     created(){
         var _this = this;
       lookOption('43').then(function (res) {
+          console.log(res);
         _this.ztreData = res.data;
         console.log(_this.ztreData);
       }).catch(err=>{
