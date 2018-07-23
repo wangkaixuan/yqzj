@@ -85,7 +85,30 @@
 	.ztree li span.button.center_docu{background-position:-56px -18px}
 	.ztree li span.button.bottom_docu{background-position:-56px -36px}
 	.ztree li span.button.noline_docu{ background:none;}
-
+	/*新的样式*/
+	.ztree li span.button.root_close,
+	.ztree li span.button.bottom_close,
+	.ztree li span.button.roots_close,
+	.ztree li span.button.center_close,
+	.ztree li span.button.noline_close {
+	  background-image:url("../images/ztree/newTreeioc.png");
+	  background-position: 0px 0px
+	}
+	.ztree li span.button.root_open,
+	.ztree li span.button.bottom_open,
+	.ztree li span.button.roots_open,
+	.ztree li span.button.center_open,
+	.ztree li span.button.noline_open {
+	  background-image:url("../images/ztree/newTreeioc.png");
+	  background-position: -14px 0px
+	}
+	.ztree li a {height: 24px;}
+	.ztree li a:hover {text-decoration:none;color:#333;}
+	.ztree li a>span.curSelectedNode{background: none !important;color: #33a7ff!important;padding: 0;}
+	.ztree li span.button.switch {width:16px; height:18px}
+	.ztree li span.button.chk{margin: -4px 3px 0 0}
+	/*新的样式*/
+	
 	.ztree li span.button.ico_open{margin-right:2px; background-position:-110px -16px; vertical-align:top; *vertical-align:middle}
 	.ztree li span.button.ico_close{margin-right:2px; background-position:-110px 0; vertical-align:top; *vertical-align:middle}
 	.ztree li span.button.ico_docu{margin-right:2px; background-position:-110px -32px; vertical-align:top; *vertical-align:middle}
