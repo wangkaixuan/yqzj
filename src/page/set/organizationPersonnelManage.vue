@@ -93,7 +93,7 @@
                     path:"",
                     children:[{
                       id:226,
-                      parentId:224,
+                      parentId:225,
                       name:"游戏末节点",
                       path:""
                     }],
