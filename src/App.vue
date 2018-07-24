@@ -8,4 +8,5 @@ export default {
 }
 </script>
 <style>
+  @import "./style/base.css";
 </style>

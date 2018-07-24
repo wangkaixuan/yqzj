@@ -4,7 +4,7 @@
   </div>
 </template>
 <script>
-  import {lookOption} from '../components/axios/api';
+  import {getOrganizationalManagementTree} from '../components/axios/api';
   import axios from 'axios';
 
   export default {
@@ -18,7 +18,7 @@
     },
     created(){
         var _this = this;
-      lookOption('43').then(function (res) {
+      getOrganizationalManagementTree('43').then(function (res) {
           console.log(res);
         _this.ztreData = res.data;
         console.log(_this.ztreData);
