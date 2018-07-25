@@ -42,18 +42,4 @@
 .pm_wary .pm_list table tr td .stop_used {color: #999;cursor: no-drop;}
 .pm_wary .pm_list table tr td .sort {cursor: pointer;}
 .pm_wary .pm_list table tr td .blue {color: #33a7ff;}
-/*分页*/
-.separate_page {padding: 30px 0;text-align: center;height: 36px;line-height: 36px;font-size: 0;}
-.separate_page .link_url,.separate_page .jump_page {display: inline-block;}
-.separate_page .link_url a{box-sizing: border-box;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;
-  display: inline-block;width: 36px;height: 36px;border: 1px solid #e5e5e5;border-radius: 6px;color: #999999;font-size: 14px;margin-right: 8px; }
-.separate_page .link_url a.hover,
-.separate_page .link_url a:hover {background: #33a7ff;color: #fff;border: 1px solid #33a7ff;}
-.separate_page .link_url a.next {margin-right: 0;}
-.separate_page .link_url a.more {border:none;}
-.separate_page .link_url .total_num {color: #333;font-size: 14px;margin: 0 10px;}
-.separate_page .jump_page {box-sizing: border-box;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;width: 110px;height: 36px;border: 1px solid #e5e5e5;border-radius: 6px;}
-.separate_page .jump_page input {outline: none;border: none;width: 44px;height: 32px;padding: 0 6px;font-size: 14px;}
-.separate_page .jump_page input:focus {border: none;}
-.separate_page .jump_page .sure_btn {display: inline-block;width: 40px;cursor: pointer;font-size: 14px;}
 .nodata{background-color: #fff;padding:20px 0;margin-top: 12px;}

@@ -312,24 +312,26 @@ export default{
         	methods:{
                 Func(m){
                     // 查找点击的子节点
-                    var recurFunc = (data,list) => {
-                        data.forEach((i)=>{
-                            if(i.id==m.id){
-                                i.clickNode = true;
-                                i.hover = true; //当前节点高亮
-                                if(typeof this.callback == "function") {
-				                    this.callback.call(null,m,list,this.trees);
-				                }
-                            }else {
-                              i.clickNode = false;
-                              i.hover = false; //非当前节点不高亮
-                            }
+                  var recurFunc = (data, list) => {
+                    data.forEach((i) => { 
+                      if (i.id == m.id) {
+                        i.clickNode = true;
+                        if (i.ico) {
+                          i.hover = true; //当前节点高亮
+                        }
+                        if (typeof this.callback == "function") {
+                          this.callback.call(null, m, list, this.trees);
+                        }
+                      } else {
+                        i.clickNode = false;
+                        i.hover = false; //非当前节点不高亮
+                      }
 
-                            if(i.children){
-                               recurFunc(i.children,i);
-                            }
-                        })
-                    }
+                      if (i.children) {
+                        recurFunc(i.children, i);
+                      }
+                    })
+                  }
 
                     recurFunc(this.trees,this.trees);
                 },
@@ -398,11 +400,9 @@ export default{
 	                }
                 },
                 enterFunc(m){
-
                     if(m.ico){
                       m.hover = true;
                     }
-
                     this.getParentNode(m,null);
                 },
                 leaveFunc(m){
@@ -563,7 +563,7 @@ export default{
 				    <span  v-show='model.hover' title='编辑组织' class="button authorize"></span>
 				    <span  v-show='model.hover' title='编辑组织' class="button dels"></span>
 				</a>
-				
+
 				<ul :class="ulClassVal" v-show='model.isFolder'>
 					<ztree-item v-for="(item,i) in model.children" :key='i' :callback='callback' :expandfunc='expandfunc' :cxtmenufunc='cxtmenufunc' :model.sync="item" :num.sync='i' root='1' :nodes.sync='model.children.length' :ischeck='ischeck' :trees.sync='trees'></ztree-item>
 				</ul>
