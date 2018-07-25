@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "element-ui": "^2.4.4",
     "js-base64": "^2.4.8",
     "js-md5": "^0.7.3",
     "less": "^3.8.0",

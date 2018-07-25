@@ -4,6 +4,7 @@ import login from '@/components/yqzjLogin'
 import opm from '@/page/set/organizationPersonnelManage'
 import text from '@/page/text'
 import dialog from '@/page/set/dialog'
+import organization from '@/page/set/groupManagement'
 
 Vue.use(Router)
 
@@ -25,6 +26,10 @@ export default new Router({
     {
       path:'/dialog',
       component:dialog
+    },
+    {
+      path:'/organization',
+      component:organization
     }
   ]
 })
