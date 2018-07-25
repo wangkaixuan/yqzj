@@ -1,7 +1,6 @@
 import { fetch } from "./fetch"; //引用fetch.js
 import api from './url'; //引用url.js
 
-
 //获得组织机构树数据
 export function getOrganizationalManagementTree(groupId) {
   return fetch({
@@ -13,27 +12,13 @@ export function getOrganizationalManagementTree(groupId) {
     }
   })
 }
+//获得人员列表数据
+export function getOrgUserList(dataParameter) {
+  return fetch({
+    url:api.Hallowmas+'/orgUser/getOrgUserList',
+    method:'get',
+    params:dataParameter
+  })
+}
 
-//有新接口的时候像上面那样再来一次
-// //修改昵称接口
-// export function userID(name){
-//   return fetch({
-//     url:api.myself_name,
-//     method:"put",
-//     data:{
-//       nickname:name
-//     }
-//   })
-// }
-//
-//
-// //取消转发赞踩接口
-// export function cancelForward(articleId,type){
-//   return fetch({
-//     url:api.detail_article+articleId+"/forwarded_impress",
-//     method:"delete",
-//     params:{
-//       type:type
-//     }
-//   })
-// }
+

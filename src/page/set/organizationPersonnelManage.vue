@@ -16,8 +16,10 @@
           <div class="pm_wary">
             <div class="pm_search"><p><input name="scarchinfo" value="" placeholder="请输入登录帐号或姓名或邮箱或微信" type="text">
               <i></i></p>
-              <p>登录帐号　<a href="javascript:void (0)" class="hover">不限</a>　&nbsp;<a href="javascript:void (0)" class="">启用</a>　&nbsp;<a href="javascript:void (0)" class="">停用</a></p></div>
-            <div class="pm_list">
+              <p>登录帐号　<a href="javascript:void (0)" class="hover">不限</a>　&nbsp;<a href="javascript:void (0)" class="">启用</a>　&nbsp;<a href="javascript:void (0)" class="">停用</a></p>
+            </div>
+            <!--列表-->
+            <div class="pm_list" v-if="orguserData.length > 0">
               <table>
                 <thead>
                 <tr>
@@ -32,9 +34,41 @@
                 </tr>
                 </thead>
                 <tbody>
-
+                <tr v-for="org,i in orguserData">
+                  <td>{{keypage+i+1}}</td>
+                  <td>{{org.account}}</td>
+                  <td>{{org.userName}}</td>
+                  <td>{{org.email}}</td>
+                  <td style="line-height: 24px;" :title="org.roleName">{{org.roleName.length > 35 ?  org.roleName.substr(0,35)+'...':org.roleName }}</td>
+                  <td>
+                    <span class="used" v-if="org.state=='1'">启用</span>
+                    <span class="stop_used" v-else>停用</span>
+                  </td>
+                  <td v-if="org.isSuper == 1 || org.isDQ == 1">
+                    <span class="tab_btn stop_used">编辑</span>
+                    <span class="tab_btn stop_used">删除</span>
+                    <span class="tab_btn stop_used">授权</span>
+                  </td>
+                  <td v-else>
+                    <span class="tab_btn" v-on:click="updateOrg(org.id,org.account,org.userName,org.email,org.wechat)" >编辑</span>
+                    <span class="tab_btn" v-on:click="delOrg(org.id,org.userName)">删除</span>
+                    <span class="tab_btn" v-on:click="accreditOrg(org.id,org.userName,org.account)">授权</span>
+                  </td>
+                  <td v-if="issearch"><span class="stop_used">排序</span></td>
+                  <td v-else><span class="sort" v-on:click="orgSort(keypage+i+1,org.id,org.userName,org.wechat)">排序</span></td>
+                </tr>
                 </tbody>
               </table>
+              <!--分页-->
+
+            </div>
+            <!--列表end-->
+            <!--无数据-->
+            <div v-else class="nodata">
+              <div class="noData noDataBreowe">
+                <img src="../../images/nodata.png">
+                <p>暂无数据</p>
+              </div>
             </div>
           </div>
         </div>
@@ -49,7 +83,8 @@
   import yqzjFooter from '../../components/footer.vue'
   import setNav from '../../components/setNav.vue'
   import vueZtree from '../../components/vue-ztree.vue'
-  import {getOrganizationalManagementTree} from '../../components/axios/api';
+  import VueCookies from 'vue-cookies'
+  import {getOrganizationalManagementTree,getOrgUserList} from '../../components/axios/api';
   export default {
       data(){
           return {
@@ -57,6 +92,17 @@
             ztreeDataSource:[],
             parentNodeModel:[],//当前点击节点父亲对象
             nodeModel:null, // 当前点击节点对象
+            issearch:false,                   //是否搜索
+            pages:1,                         //页数
+            keypage:0,                       //循环键值页数
+            dataParameter:{
+              pageSize:'10',              //每页条数
+              orgIds:'',                  //集团id
+              pageNum:1,                  //当前页数
+              retrievalName :'',          //检束
+              state:''                    //状态 1启用 0停用
+            },
+            orguserData:[]                  //数据列表
           }
       },
     components:{
@@ -71,15 +117,17 @@
         this.treeDeepCopy = trees;
         this.nodeModel = m;  // 当前点击节点对象
         this.parentNodeModel = parent; //当前点击节点父亲对象
+        this.dataParameter.orgIds = m.id;
+        this.getOrgUserInfo();
 
-        console.log(m);
-        console.log(parent);
+//        console.log(m);
+//        console.log(parent);
 
         // 导航菜单
-        this.dataList=[]
-        this.findById(this.ztreeDataSource,m.parentId)
-        this.dataList= this.dataList.reverse();
-        this.dataList.push(m);
+//        this.dataList=[]
+//        this.findById(this.ztreeDataSource,m.parentId)
+//        this.dataList= this.dataList.reverse();
+//        this.dataList.push(m);
       },
       findById: function (data, parentId) {
         var vm = this;
@@ -96,7 +144,37 @@
           }
         }
       },
+<<<<<<< HEAD
 
+=======
+      getOrgUserInfo:function () {
+        //获得导航数据
+        var _this = this;
+        getOrgUserList(_this.dataParameter).then(function (res) {
+            if(res.data.result.data){
+              _this.orguserData = res.data.result.data
+            }else{
+              _this.orguserData = [];
+            }
+
+        }).catch(err=>{
+            console.log(err,'请求失败');
+        })
+      },
+      updateOrg:function (id,account,orgname,email,wechat) {
+          //编辑
+      },
+      delOrg:function (id,name) {
+          //删除
+      },
+      accreditOrg:function (id,name,account) {
+        //授权
+      },
+      orgSort:function (loc,id,name) {
+        //排序
+
+      },
+>>>>>>> 588c72d6302002338bdce4171f5e378e88a61901
       traversezTreeData:function (data) {
         var zTreeData = [];
         for(let i in data){
@@ -110,110 +188,21 @@
             }
           }
         }
+        data[0].clickNode = true;
         zTreeData[0] = data[0];
-        console.log(zTreeData);
         return zTreeData;
       }
     },
     mounted (){
       // 异步获取数据操作
       let _this = this;
-      getOrganizationalManagementTree('43').then(function (res) {
+      getOrganizationalManagementTree(VueCookies.get('generalGroupId')).then(function (res) {
         _this.ztreeDataSource = _this.traversezTreeData(res.data.result.data);
+        _this.dataParameter.orgIds = _this.ztreeDataSource[0].id;
+        _this.getOrgUserInfo();
       }).catch(err=>{
         console.log(err,'请求失败！');
       })
-//      setTimeout(()=>{
-//        this.ztreeDataSource = [{
-//          id:220,
-//          parentId:0,
-//          name:"游戏1",
-//          children:[{
-//            id:221,
-//            parentId:220,
-//            name:"游戏2",
-//            path:"",
-//            children:[{
-//              id:222,
-//              parentId:221,
-//              name:"游戏3",
-//              path:"",
-//              children:[{
-//                id:223,
-//                parentId:222,
-//                name:"游戏4",
-//                path:"",
-//                children:[{
-//                  id:224,
-//                  parentId:223,
-//                  name:"游戏5",
-//                  path:"",
-//                  children:[{
-//                    id:225,
-//                    parentId:224,
-//                    name:"游戏6",
-//                    path:"",
-//                    children:[{
-//                      id:226,
-//                      parentId:224,
-//                      name:"游戏末节点",
-//                      path:""
-//                    }],
-//                  }],
-//                }],
-//              }],
-//            }],
-//          }],
-//          path:"http://www.baidu.com"
-//        },{
-//          id:1,
-//          parentId:0,
-//          name:"音乐",
-//          children:[],
-//          path:"http://www.baidu.com"
-//        },{
-//          id:2,
-//          parentId:0,
-//          name:"视频",
-//          children:[{
-//            id:3,
-//            parentId:2,
-//            name:"电影",
-//            children:[{
-//              id:4,
-//              parentId:3,
-//              name:"国产电影",
-//              path:""
-//            },{
-//              id:5,
-//              parentId:3,
-//              name:"好莱坞电影",
-//              path:""
-//            },{
-//              id:6,
-//              parentId:3,
-//              name:"小语种电影",
-//              path:""
-//            }]
-//          },{
-//            id:7,
-//            parentId:2,
-//            name:"短片",
-//            children:[{
-//              id:9,
-//              parentId:7,
-//              name:"电视剧",
-//              path:""
-//            },{
-//              id:10,
-//              parentId:7,
-//              name:"短片",
-//              path:""
-//            }]
-//          }],
-//          path:""
-//        }]
-//      },1000);
     }
   }
 </script>
