@@ -140,6 +140,22 @@
         display: inline-block;
 		background-image:url("data:image/gif;base64,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")
 	}
+	/*增删改查按钮样式*/
+	.ztree li span.button.adds,
+	.ztree li span.button.edits,
+	.ztree li span.button.authorize,
+	.ztree li span.button.dels {display: inline-block;width: 16px;height: 24px;
+		background: url('../images/ztree/role_ico.png') no-repeat;
+	}
+	.ztree li span.button.adds {background-position: -12px -38px;}
+	.ztree li span.button.adds:hover {background-position: -12px -66px;}
+	.ztree li span.button.edits {background-position: -40px -38px;}
+	.ztree li span.button.edits:hover {background-position: -40px -66px;}
+	.ztree li span.button.authorize {background-position: -68px -38px;}
+	.ztree li span.button.authorize:hover {background-position: -68px -66px;}
+	.ztree li span.button.dels {background-position: -96px -38px;}
+	.ztree li span.button.dels:hover {background-position: -96px -66px;}
+	/*增删改查按钮样式*/
 </style>
 
 <template>
@@ -302,11 +318,13 @@ export default{
                         data.forEach((i)=>{
                             if(i.id==m.id){
                                 i.clickNode = true;
+                                i.hover = true; //当前节点高亮
                                 if(typeof this.callback == "function") {
 				                    this.callback.call(null,m,list,this.trees);
 				                }
                             }else {
                               i.clickNode = false;
+                              i.hover = false; //非当前节点不高亮
                             }
 
                             if(i.children){
@@ -382,11 +400,13 @@ export default{
 	                }
                 },
                 enterFunc(m){
-                    m.hover = true;
+                	m.hover = true;
                     this.getParentNode(m,null);
                 },
                 leaveFunc(m){
-                	m.hover = false;
+                	if(!m.clickNode){
+                		m.hover = false;
+                	}
                 },
                 // 新增节点
 			    addNode(nodeModel){
@@ -528,14 +548,19 @@ export default{
 				    <span :class='model.iconClass' v-show='model.iconClass' v-else></span>
 				    <span v-show='ischeck' id="treeDemo_5_check" class="button chk" :class='{"checkbox_false_full":!model.ckbool,"checkbox_true_full":model.ckbool}' @click='ckFunc(model)' treenode_check=""></span>
 					<span class="node_name" :class='aClassVal' @click='Func(model)' >{{model.name}}</span>
-					<!--新增-->
-					<span  v-show='model.hover' title='新增' class="button add" @click="addNode(model)"></span>
-					<!--删除-->
-				    <span v-show='model.hover' title='删除' class="button remove" @click="delNode(model)"></span>
-				    <!--上移-->
-				    <span v-show='model.hover' title='上移' class="button up" @click="upNode(model)"></span>
-				    <!--下移-->
-				    <span v-show='model.hover' title='下移' class="button down" @click="downNode(model)"></span>
+					<!--新增
+					<span  v-show='model.hover' title='新增' class="button add" @click="addNode(model)"></span>-->
+					<!--删除
+				    <span v-show='model.hover' title='删除' class="button remove" @click="delNode(model)"></span>-->
+				    <!--上移
+				    <span v-show='model.hover' title='上移' class="button up" @click="upNode(model)"></span>-->
+				    <!--下移
+				    <span v-show='model.hover' title='下移' class="button down" @click="downNode(model)"></span>-->
+
+				    <span  v-show='model.hover' title='添加组织' class="button adds" @click="addGroup(model)"></span>
+				    <span  v-show='model.hover' title='编辑组织' class="button edits"></span>
+				    <span  v-show='model.hover' title='编辑组织' class="button authorize"></span>
+				    <span  v-show='model.hover' title='编辑组织' class="button dels"></span>
 				</a>
 				
 				<ul :class="ulClassVal" v-show='model.isFolder'>

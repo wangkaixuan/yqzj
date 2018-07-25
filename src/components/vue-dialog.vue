@@ -124,6 +124,7 @@ export default {
                     color: #686868;
                     width: 20px;
                     height: 20px;
+                    cursor: pointer;
                 }
             }
             .content{

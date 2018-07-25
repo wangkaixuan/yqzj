@@ -3,7 +3,7 @@
     <yqzj-Head></yqzj-Head>
     <div class="centre">
       <div style='width:280px;' v-if='ztreeDataSource.length>0'>
-        <vue-ztree :list.sync='ztreeDataSource' :func='nodeClick' :is-open='false' :is-check='true'></vue-ztree>
+        <vue-ztree :list.sync='ztreeDataSource' :func='nodeClick' :is-open='true' :is-check='true'></vue-ztree>
       </div>
     </div>
     <yqzj-Footer></yqzj-Footer>
@@ -58,6 +58,9 @@
           }
         }
       },
+      addGroup: function (model) {
+        console.log(this);
+      }
     },
     mounted (){
       // 异步获取数据操作
