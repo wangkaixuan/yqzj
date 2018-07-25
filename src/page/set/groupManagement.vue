@@ -52,10 +52,21 @@
 				    <div class="authorize_company_box"><p>授权单位</p> <h3>技术部3组b组</h3></div>
 				    <div class="authorize_company_content clearfix">
 				    	<div class="authorize_left">
-				    		<div class="authorize_title clearfix"></div>
-				    		<div class="authorize_tree"></div>
+				    		<div class="authorize_title clearfix">是否启用数据授权<label><el-checkbox v-model="checkAll">全选</el-checkbox></label></div>
+				    		<el-tree
+							  :data="data2"
+							  show-checkbox
+							  node-key="id"
+							  ref="tree"
+							  default-expand-all
+							  :expand-on-click-node="false"
+							  :props="defaultProps">
+							</el-tree>
 				    	</div>
-				    	<div class="authorize_right authorize_width"></div>
+				    	<div class="authorize_right authorize_width">
+				    		<div class="authorize_title">功能授权</div>
+				    		
+				    	</div>
 				    	<div class=""></div>
 				    </div>
 				  </el-form>
@@ -112,7 +123,47 @@ export default {
         form2: {
 
         },
-        form2width: '840px'
+        form2width: '840px',
+        checkAll: false,
+        data2: [{
+          id: 1,
+          label: '一级 1',
+          children: [{
+            id: 4,
+            label: '二级 1-1',
+            children: [{
+              id: 9,
+              label: '三级 1-1-1'
+            }, {
+              id: 10,
+              label: '三级 1-1-2'
+            }]
+          }]
+        }, {
+          id: 2,
+          label: '一级 2',
+          children: [{
+            id: 5,
+            label: '二级 2-1'
+          }, {
+            id: 6,
+            label: '二级 2-2'
+          }]
+        }, {
+          id: 3,
+          label: '一级 3',
+          children: [{
+            id: 7,
+            label: '二级 3-1'
+          }, {
+            id: 8,
+            label: '二级 3-2'
+          }]
+        }],
+        defaultProps: {
+          children: 'children',
+          label: 'label'
+        }
       };
     },
 	components:{
@@ -183,6 +234,7 @@ export default {
   float: right;
 }
 .authorize_company_box {
+  padding: 30px 0;
   text-align: center;
 }
 .authorize_company_box p {
