@@ -60,7 +60,7 @@
                 </tbody>
               </table>
               <!--分页-->
-
+              <pubpaging :pages="pages"   :current.sync="dataParameter.pageNum" @navpage="msgListView"></pubpaging>
             </div>
             <!--列表end-->
             <!--无数据-->
@@ -82,6 +82,7 @@
   import yqzjHead from '../../components/header.vue'
   import yqzjFooter from '../../components/footer.vue'
   import setNav from '../../components/setNav.vue'
+  import pubpaging from '../../components/pagination.vue'
   import vueZtree from '../../components/vue-ztree.vue'
   import VueCookies from 'vue-cookies'
   import {getOrganizationalManagementTree,getOrgUserList} from '../../components/axios/api';
@@ -109,6 +110,7 @@
       vueZtree,
       yqzjHead,
       yqzjFooter,
+      pubpaging,
       setNav
     },
     methods:{
@@ -144,7 +146,11 @@
           }
         }
       },
-
+      msgListView:function(curPage){
+        //分页组件跳转
+        this.dataParameter.pageNum = curPage;
+        this.getOrgUserInfo();
+      },
       getOrgUserInfo:function () {
         //获得导航数据
         var _this = this;
