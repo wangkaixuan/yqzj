@@ -144,9 +144,7 @@
           }
         }
       },
-<<<<<<< HEAD
 
-=======
       getOrgUserInfo:function () {
         //获得导航数据
         var _this = this;
@@ -174,7 +172,6 @@
         //排序
 
       },
->>>>>>> 588c72d6302002338bdce4171f5e378e88a61901
       traversezTreeData:function (data) {
         var zTreeData = [];
         for(let i in data){
