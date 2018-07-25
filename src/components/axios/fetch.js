@@ -10,7 +10,7 @@ export function fetch(options){
       headers: {
         'ACCESSTOKEN': token,
         'ZHXGUSERID': userid,
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json;charset=UTF-8'
         // 'token_in_header': global_.token,//token从全局变量那里传过来
       },
       timeout:30 * 1000 // 30秒超时
