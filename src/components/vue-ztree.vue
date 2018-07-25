@@ -22,7 +22,7 @@
 	    background-image: url("../images/ztree/zTreeStandard.png");
 	}
 
-	ul.ztree {border:1px solid #ddd;background: #ffffff;width:100%;height:auto;overflow-y:scroll;overflow-x:auto;}
+	ul.ztree {background: #ffffff;width:auto;height:auto;margin-left: 10px;}
 
 	.ztree * {padding:0; margin:0; font-size:15px; font-family: Verdana, Arial, Helvetica, AppleGothic, sans-serif}
 	.ztree {margin:0; padding:5px; color:#333 ;}
@@ -108,18 +108,17 @@
 	.ztree li span.button.switch {width:16px; height:18px}
 	.ztree li span.button.chk{margin: -4px 3px 0 0}
 	/*新的样式*/
-	
 	.ztree li span.button.ico_open{margin-right:2px; background-position:-110px -16px; vertical-align:top; *vertical-align:middle}
 	.ztree li span.button.ico_close{margin-right:2px; background-position:-110px 0; vertical-align:top; *vertical-align:middle}
 	.ztree li span.button.ico_docu{margin-right:2px; background-position:-110px -32px; vertical-align:top; *vertical-align:middle}
 	.ztree li span.button.add {margin:4px 2px 0 0; background-position:-143px 0px; vertical-align:top; *vertical-align:middle}
 	.ztree li span.button.edit {margin-right:2px; background-position:-110px -48px; vertical-align:top; *vertical-align:middle}
 	.ztree li span.button.remove {margin:4px 2px 0 0; background-position:-110px -64px; vertical-align:top; *vertical-align:middle}
-    .ztree li span.button.up { background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAe0lEQVQ4T2NkoBAwUqifgaYGKDAwMKyHutCRgYHhAzbX4nKBAQMDw34GBgYBqCaQZpAhF9ANwWZAAgMDw3wstoEMKWRgYFiALIfNAJBCfhyB+xHJVWAl+ALxP5ohWNWOGoA/EEFxrg8NyIsMDAygtIEBaJqUicpnFLsAAPsjERHQK2WXAAAAAElFTkSuQmCC) 
+    .ztree li span.button.up { background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAe0lEQVQ4T2NkoBAwUqifgaYGKDAwMKyHutCRgYHhAzbX4nKBAQMDw34GBgYBqCaQZpAhF9ANwWZAAgMDw3wstoEMKWRgYFiALIfNAJBCfhyB+xHJVWAl+ALxP5ohWNWOGoA/EEFxrg8NyIsMDAygtIEBaJqUicpnFLsAAPsjERHQK2WXAAAAAElFTkSuQmCC)
     }
-    .ztree li span.button.down { background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAmklEQVQ4T+2TsQ0CMQxF7ToFsEF6WwI2uFEYgVFuBEZhhBR2nxGOIrWRu4gkCCm6DrfOf3qJHYTJwsk87AcgooSIZzc0s6Sq157t0ICZrQ6ISPfsHwDtGJl5A4DDYD82ETnVveYRieiGiGsH8jKzu6o+vgK8SUQXRHxWEA8vqpo+zYZjjDEeQwgOgVLKknP2qzW13yr/+smmDd6ImjsRbQJ62AAAAABJRU5Erk) 
+    .ztree li span.button.down { background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAmklEQVQ4T+2TsQ0CMQxF7ToFsEF6WwI2uFEYgVFuBEZhhBR2nxGOIrWRu4gkCCm6DrfOf3qJHYTJwsk87AcgooSIZzc0s6Sq157t0ICZrQ6ISPfsHwDtGJl5A4DDYD82ETnVveYRieiGiGsH8jKzu6o+vgK8SUQXRHxWEA8vqpo+zYZjjDEeQwgOgVLKknP2qzW13yr/+smmDd6ImjsRbQJ62AAAAABJRU5Erk)
     }
-	/*.ztree li span.button.ico_loading{margin-right:2px; background:url('../images/ztree/loading.gif') no-repeat scroll 0 0 transparent; 
+	/*.ztree li span.button.ico_loading{margin-right:2px; background:url('../images/ztree/loading.gif') no-repeat scroll 0 0 transparent;
 	            vertical-align:top; *vertical-align:middle}*/
 
 	ul.tmpTargetzTree {background-color:#FFE6B0; opacity:0.8; filter:alpha(opacity=80)}
@@ -128,7 +127,7 @@
 		background-color:white; background-repeat:no-repeat; background-attachment: scroll;
 		background-position:-110px -80px; background-image:url("../images/ztree/zTreeStandard.png"); *background-image:url("../images/ztree/zTreeStandard.gif")}
 
-	ul.ztree.zTreeDragUL {margin:0; padding:0; position:absolute; width:auto; height:auto;overflow:hidden; 
+	ul.ztree.zTreeDragUL {margin:0; padding:0; position:absolute; width:auto; height:auto;overflow:hidden;
 	             background-color:#cfcfcf; border:1px #00B83F dotted; opacity:0.8; filter:alpha(opacity=80)}
 
 	.zTreeMask {z-index:10000; background-color:#cfcfcf; opacity:0.0; filter:alpha(opacity=0); position:absolute}
@@ -216,7 +215,6 @@ export default{
 	watch:{
         'list': {
             handler:function(){
-            	alert("哈哈");
             	this.initTreeData();
             },
             deep:true
@@ -225,7 +223,7 @@ export default{
 	methods:{
         initTreeData(){
             var tempList = JSON.parse(JSON.stringify(this.list));
-            
+
             // 递归操作，增加删除一些属性。比如: 展开/收起
             var recurrenceFunc = (data) => {
                 data.forEach((m)=>{
@@ -244,7 +242,7 @@ export default{
                     m.children = m.children || [];
 
                     m.hover = false;
-            
+
                     if(	!m.hasOwnProperty("isFolder") ) {
 	               		m.isFolder =  m.hasOwnProperty("open") ? m.open : this.isOpen;
 	                }
@@ -253,8 +251,8 @@ export default{
 	               		m.isExpand =  m.hasOwnProperty("open") ? m.open : this.isOpen;
 	               	}
 
-	               	m.loadNode = 0; 
-	               	
+	               	m.loadNode = 0;
+
 	               	recurrenceFunc(m.children);
                 })
             };
@@ -273,44 +271,44 @@ export default{
                 	parentNodeModel : null
                 }
         	},
-        	props: {
-        		model:{
-        			type:Object,
-        			twoWay:true
-        		},
-        		num:{
-                    type:Number,
-                    twoWay:true
-        		},
-        		nodes:{
-                    type:Number,
-                    twoWay:true,
-                    default:0
-        		},
-        		trees:{
-		       	  	type:Array,
-		       	  	twoWay:true,
-		       	  	default:[]
-		        },
-        		root:{
-                    type:String,
-                    twoWay:true
-        		},
-        		callback:{
-					type:Function
-				},
-				expandfunc:{
-					type:Function
-				},
-				cxtmenufunc:{
-					type:Function
-				},
-				ischeck:{
-					type:Boolean,
-					twoWay:true,
-					default:false
-				}
-        	},
+          props: {
+            model: {
+              type: Object,
+              twoWay: true
+            },
+            num: {
+              type: Number,
+              twoWay: true
+            },
+            nodes: {
+              type: Number,
+              twoWay: true,
+              default: 0
+            },
+            trees: {
+              type: Array,
+              twoWay: true,
+              default: []
+            },
+            root: {
+              type: String,
+              twoWay: true
+            },
+            callback: {
+              type: Function
+            },
+            expandfunc: {
+              type: Function
+            },
+            cxtmenufunc: {
+              type: Function
+            },
+            ischeck: {
+              type: Boolean,
+              twoWay: true,
+              default: false
+            }
+          },
         	methods:{
                 Func(m){
                     // 查找点击的子节点
@@ -337,7 +335,7 @@ export default{
                 },
                 ckFunc(m){
                     m.ckbool = !m.ckbool;
-                   
+
                     // 查找复选框的所有子节点
                     var recurFuncChild = (data) => {
                         data.forEach((i)=>{
@@ -350,7 +348,7 @@ export default{
                     // 查找复选框的所有父节点
                     var isFindRootBool  = false, parentId = m.parentId;
                     var recurFuncParent = (data,list) => {
-	                        data.forEach((i)=>{ 
+	                        data.forEach((i)=>{
 	                        	if(!isFindRootBool) {
 	                        		console.log(i.id+"，"+parentId);
 		                        	if(i.id == parentId && parentId>0) {
@@ -367,7 +365,7 @@ export default{
 		                        	}
 	                        	}
 	                        })
-	                    
+
                     }
                     recurFuncParent(this.trees,this.trees);
                 },
@@ -387,7 +385,7 @@ export default{
                 open(m){
                 	//
                 	m.isExpand = !m.isExpand;
-           
+
                 	if(typeof this.expandfunc == "function" && m.isExpand) {
                 		if(m.loadNode!=2) {
 		                	//
@@ -400,7 +398,11 @@ export default{
 	                }
                 },
                 enterFunc(m){
-                	m.hover = true;
+
+                    if(m.ico){
+                      m.hover = true;
+                    }
+
                     this.getParentNode(m,null);
                 },
                 leaveFunc(m){
@@ -409,8 +411,9 @@ export default{
                 	}
                 },
                 // 新增节点
-			    addNode(nodeModel){
-			    	console.log(this);
+			    addNode(nodeModel,h){
+			    	console.log(nodeModel);
+			    	return false;
 			        if(nodeModel) {
 			          var _nid = +new Date();
 			          nodeModel.children.push({
@@ -488,22 +491,20 @@ export default{
         		// 给（根 和 子树）赋值不同的样式
                 rootClass(){
                 	 var strRootClass = '';
-                     
                      // 根判断
                 	 if(this.root=='0'){
                        this.model.children = this.model.children || [];
-                       strRootClass =  (this.num==0 && this.model.children.length==0) ? "roots_docu" : (this.nodes==1) || (this.num==0 && this.nodes!=this.num+1) ? 
+                       strRootClass =  (this.num==0 && this.model.children.length==0) ? "roots_docu" : (this.nodes==1) || (this.num==0 && this.nodes!=this.num+1) ?
                          "root_" : (this.nodes == this.num+1) ? "bottom_" : "center_";
-                     
+
                      // 子树判断
                 	 }else if(this.root=='1') {
                         this.model.children = this.model.children || [];
                         strRootClass =  this.nodes>1 && this.model.children.length>0 && this.nodes!=this.num+1
-                         ? "center_" : 
-                            (this.num == 0 && this.nodes>1) || (this.nodes!=this.num+1) ? "center_docu" : 
+                         ? "center_" :
+                            (this.num == 0 && this.nodes>1) || (this.nodes!=this.num+1) ? "center_docu" :
                                  this.nodes == 1&&this.num!=0 || (this.nodes==this.num+1 && this.model.children.length>0)   ? "bottom_" : "bottom_docu";
                 	 }
-
                 	 return  strRootClass
                 },
                 // 是否有儿子节点
@@ -524,7 +525,7 @@ export default{
 	                if(this.model.children.length==0 && this.rootClass.indexOf("docu")==-1){
                         returnChar = 'docu'
 	                }
-	                
+
 	                return returnChar;
                 },
                 liClassVal(){
@@ -540,7 +541,7 @@ export default{
                 	return this.isChildren && this.model.children.length>0 ?"level"+this.num+' line':"level"+this.num;
                 }
         	},
-            template: 
+          template:
             `<li :class="liClassVal">
 				<span :class="spanClassVal" @click='open(model)'></span>
 				<a  @mouseenter='enterFunc(model)' @mouseleave='leaveFunc(model)'  @contextmenu.prevent='cxtmenufunc(model)'>
