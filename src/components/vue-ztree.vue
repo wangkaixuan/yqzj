@@ -313,7 +313,7 @@ export default{
                 Func(m){
                     // 查找点击的子节点
                   var recurFunc = (data, list) => {
-                    data.forEach((i) => { 
+                    data.forEach((i) => {
                       if (i.id == m.id) {
                         i.clickNode = true;
                         if (i.ico) {

@@ -4,7 +4,7 @@
     <div class="centre">
       <set-nav></set-nav>
       <div class="set-infowary">
-        <div class="tit"><a class="hover">人员管理</a> <p the-id="addUser" class="addrole">添加人员</p></div>
+        <div class="tit"><a class="hover">人员管理</a> <p class="addrole" v-on:click="addRy()">添加人员</p></div>
         <div class="group_management_wrap clearfix">
           <!--树-->
           <div class="group_tree_wrap">
@@ -75,6 +75,32 @@
       </div>
       <div class="clear"></div>
     </div>
+    <el-dialog title="账号信息" :visible.sync="dialogFormVisible"  width="540px">
+      <el-form :model="form">
+        <el-form-item label="登录账号" :label-width="formLabelWidth">
+          <el-input v-model="form.account" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="姓名" :label-width="formLabelWidth">
+          <el-input v-model="form.userName" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="密码" :label-width="formLabelWidth">
+          <el-input v-model="form.password" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="确认密码" :label-width="formLabelWidth">
+          <el-input v-model="form.passwordtow" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="邮箱" :label-width="formLabelWidth">
+          <el-input v-model="form.email" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="微信号" :label-width="formLabelWidth">
+          <el-input v-model="form.wechat" auto-complete="off"></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">取 消</el-button>
+        <el-button type="primary" @click="saveOrgInfo()" >确 定</el-button>
+      </div>
+    </el-dialog>
     <yqzj-Footer></yqzj-Footer>
   </div>
 </template>
@@ -85,7 +111,7 @@
   import pubpaging from '../../components/pagination.vue'
   import vueZtree from '../../components/vue-ztree.vue'
   import VueCookies from 'vue-cookies'
-  import {getOrganizationalManagementTree,getOrgUserList} from '../../components/axios/api';
+  import {getOrganizationalManagementTree,getOrgUserList,addOrgUser} from '../../components/axios/api';
   export default {
       data(){
           return {
@@ -103,7 +129,20 @@
               retrievalName :'',          //检束
               state:''                    //状态 1启用 0停用
             },
-            orguserData:[]                  //数据列表
+            orguserData:[],                  //数据列表
+            dialogFormVisible: false,       //添加人弹层
+            gridData:[],                      //编辑信息
+            form:{
+              id:'',                          //id号编辑用到
+              orgId:'',                       //集团id号
+              account:'',                    //手机号
+              userName:'',                  //用户名
+              password:'',                  //密码
+              passwordtow:'',                //确认密码
+              email:'',                     //邮箱
+              wechat:''                     //微信
+            },
+            formLabelWidth:'80px'
           }
       },
     components:{
@@ -131,14 +170,78 @@
 //        this.dataList= this.dataList.reverse();
 //        this.dataList.push(m);
       },
+      addRy:function () {
+          //添加显示弹层
+        this.dialogFormVisible = true;
+      },
+      saveOrgInfo:function () {
+        //保存数据
+        let isMobile = /^1[3|5|8|7|9|6][0-9]{9}$/,
+          isPwd = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$/,
+          isUserName = /[\u4e00-\u9fa5]/,
+          isEmail = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+        let _this = this;
+        //登陆账号验证
+        if(_this.form.account.length == 0){
+          alert('手机号不能为空');
+          return false;
+        }else if(!isMobile.test(_this.form.account)){
+          alert('格式不正确，请重新输入');
+          return false;
+        }
+        //姓名验证
+        if(_this.form.userName.length == 0 || !isUserName.test(_this.form.userName) || _this.form.userName.length > 10){
+          alert('非空，中文10个字符');
+          return false;
+        }
+        //密码验证
+        if(_this.form.id == ''){
+          if(_this.form.password.length == 0 || !isPwd.test(_this.form.password)){
+            alert('字母+数字混合8-16位');
+            return false;
+          }
+          //确认密码验证
+          if(_this.form.password != _this.form.passwordtow){
+            alert('密码不一致');
+            return false;
+          }
+        }else if(_this.form.password.length > 0){
+          //密码验证
+          if(!isPwd.test(_this.form.password)){
+            alert('字母+数字混合8-16位');
+            return false;
+          }
+          if(_this.form.password != _this.form.passwordtow){
+            alert('密码不一致');
+            return false;
+          }
+        }
+        //邮箱验证
+        if(_this.form.email != '' && _this.form.email.length < 30 && !isEmail.test(_this.form.email)){
+          alert('邮箱格式不正确');
+          return false;
+        }
+        //微信验证
+        if(_this.form.wechat != '' && !isMobile.test(_this.form.wechat)){
+          alert('微信号格式不正确');
+          return false;
+        }
+        _this.form.orgId = _this.dataParameter.orgIds;                //赋值一下集团id
+
+        console.log(_this.form)
+        addOrgUser(_this.form).then(function(res){
+          console.log(res);
+        }).catch(err=>{
+            console.log(err,'请求失败！')
+        })
+      },
       findById: function (data, parentId) {
         var vm = this;
         for (var i = 0; i < data.length; i++) {
 
           if (parentId == data[i].id) {
-            console.log(data[i])
             vm.dataList.push(data[i]);
-            vm.findById(vm.ztreeDataSource, data[i].parentId)
+            vm.findById(vm.ztreeDataSource, data[i].parentId);
             return data[i]
           }
           if (data[i].hasOwnProperty('children')) {
@@ -269,4 +372,10 @@
     padding-top: 0;
   }
   ul.ztree{height:700px;}
+  /*弹层*/
+  .el-dialog{border-radius: 6px;}
+  .el-dialog__header{border-bottom: 1px solid #e6e6e6;font-size: 16px;color: #333333;font-weight: bold;padding:0px;height: 48px;line-height: 48px;padding: 0 30px;}
+  .el-dialog__headerbtn{top:16px;}
+  .el-form-item__label{color: #999;}
+  .el-form-item{margin-bottom: 10px;}
 </style>

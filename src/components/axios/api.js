@@ -20,5 +20,13 @@ export function getOrgUserList(dataParameter) {
     params:dataParameter
   })
 }
+//保存人员数据
+export function addOrgUser(dp) {
+  return fetch({
+    url:api.Hallowmas+'/orgUser/addOrgUser',
+    method:'post',
+    data:dp
+  })
+}
 
 
