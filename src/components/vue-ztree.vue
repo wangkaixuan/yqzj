@@ -414,7 +414,7 @@ export default{
                 	}
                 },
                 // 新增节点
-			    addNode(nodeModel,h){
+			    addNode(nodeModel){
 			    	console.log(nodeModel);
 			    	return false;
 			        if(nodeModel) {
