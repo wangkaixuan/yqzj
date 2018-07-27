@@ -271,67 +271,67 @@ export default{
                 	parentNodeModel : null
                 }
         	},
-          props: {
-            model: {
-              type: Object,
-              twoWay: true
-            },
-            num: {
-              type: Number,
-              twoWay: true
-            },
-            nodes: {
-              type: Number,
-              twoWay: true,
-              default: 0
-            },
-            trees: {
-              type: Array,
-              twoWay: true,
-              default: []
-            },
-            root: {
-              type: String,
-              twoWay: true
-            },
-            callback: {
-              type: Function
-            },
-            expandfunc: {
-              type: Function
-            },
-            cxtmenufunc: {
-              type: Function
-            },
-            ischeck: {
-              type: Boolean,
-              twoWay: true,
-              default: false
-            }
-          },
+			props: {
+				model: {
+				  type: Object,
+				  twoWay: true
+				},
+				num: {
+				  type: Number,
+				  twoWay: true
+				},
+				nodes: {
+				  type: Number,
+				  twoWay: true,
+				  default: 0
+				},
+				trees: {
+				  type: Array,
+				  twoWay: true,
+				  default: []
+				},
+				root: {
+				  type: String,
+				  twoWay: true
+				},
+				callback: {
+				  type: Function
+				},
+				expandfunc: {
+				  type: Function
+				},
+				cxtmenufunc: {
+				  type: Function
+				},
+				ischeck: {
+				  type: Boolean,
+				  twoWay: true,
+				  default: false
+				}
+			},
         	methods:{
                 Func(m){
                     // 查找点击的子节点
-                  var recurFunc = (data, list) => {
-                    data.forEach((i) => {
-                      if (i.id == m.id) {
-                        i.clickNode = true;
-                        if (i.ico) {
-                          i.hover = true; //当前节点高亮
-                        }
-                        if (typeof this.callback == "function") {
-                          this.callback.call(null, m, list, this.trees);
-                        }
-                      } else {
-                        i.clickNode = false;
-                        i.hover = false; //非当前节点不高亮
-                      }
+					var recurFunc = (data, list) => {
+						data.forEach((i) => {
+							if (i.id == m.id) {
+								i.clickNode = true;
+								if (i.ico) {
+									i.hover = true; //当前节点高亮
+								}
+								if (typeof this.callback == "function") {
+									this.callback.call(null, m, list, this.trees);
+								}
+							} else {
+								i.clickNode = false;
+								i.hover = false; //非当前节点不高亮
+							}
 
-                      if (i.children) {
-                        recurFunc(i.children, i);
-                      }
-                    })
-                  }
+							if (i.children) {
+								recurFunc(i.children, i);
+							}
+						})
+					}
 
                     recurFunc(this.trees,this.trees);
                 },

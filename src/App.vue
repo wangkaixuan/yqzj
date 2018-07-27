@@ -11,7 +11,7 @@ export default {
   @import "./style/base.css";
   /*授权弹窗*/
   .authorize_group .el-dialog__body{
-	padding: 30px 0;
+	  padding: 30px 0;
   }
   /*授权弹窗*/
   .group_tree_wrap .el-tree {

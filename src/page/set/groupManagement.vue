@@ -12,7 +12,7 @@
           <!--左盒子-->
           <div class="group_tree_wrap">
             <div class="group_tree_box">
-              <vue-ztree :list.sync='ztreeDataSource' :func='nodeClick' :is-open='true' :is-check='false'></vue-ztree>
+              <vue-ztree :list.sync='ztreeDataSource' :func='nodeClick' :is-open='true' :is-check='false' :is-icon="true"></vue-ztree>
             </div>
           </div>
           <!--右边盒子-->
@@ -352,7 +352,7 @@ export default {
     //组织树数据获取
     getGroupTree(VueCookies.get('generalGroupId')).then(function (res) {
       _this.ztreeDataSource = _this.traversezTreeData(res.data.result.data);
-      _this.dataParameter.orgIds = _this.ztreeDataSource[0].id;
+      //_this.dataParameter.orgIds = _this.ztreeDataSource[0].id;
       //_this.getOrgUserInfo();
     }).catch(err=>{
       console.log(err,'请求失败！');
@@ -413,12 +413,14 @@ export default {
 }
 .tit {
   width: 100%;
-  border-bottom: 1px solid #e5e5e5;
+  //border-bottom: 1px solid #e5e5e5;
+  border: 1px solid #e5e5e5;
   padding: 20px 0 0;
   font-size: 16px;
   font-family: "黑体";
   overflow: hidden;
   background: #fff;
+  border-radius: 6px;
 }
 .tit a {
   padding-bottom: 20px;
@@ -541,7 +543,7 @@ export default {
     }
   }
 }
-
+//授权弹窗
 .authorize_group .el-form {
   max-height: 440px;
   overflow: auto;
@@ -598,7 +600,7 @@ export default {
 .authorize_right .authorize_title{
   border-bottom: none
 }
-
+//添加组织
 .org_tips {
   color: #ff3333;
   font-size: 12px;
