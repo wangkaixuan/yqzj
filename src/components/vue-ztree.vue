@@ -400,6 +400,9 @@ export default{
 	                }
                 },
                 enterFunc(m){
+
+                console.log('------------this.model---------------');
+                console.log(this.model.pId);
                     if(m.ico){
                       m.hover = true;
                     }
@@ -541,33 +544,33 @@ export default{
                 	return this.isChildren && this.model.children.length>0 ?"level"+this.num+' line':"level"+this.num;
                 }
         	},
-          template:
-            `<li :class="liClassVal">
-				<span :class="spanClassVal" @click='open(model)'></span>
-				<a  @mouseenter='enterFunc(model)' @mouseleave='leaveFunc(model)'  @contextmenu.prevent='cxtmenufunc(model)'>
-				    <span :class="{loadSyncNode:model.loadNode==1}" v-if='model.loadNode==1'></span>
-				    <span :class='model.iconClass' v-show='model.iconClass' v-else></span>
-				    <span v-show='ischeck' id="treeDemo_5_check" class="button chk" :class='{"checkbox_false_full":!model.ckbool,"checkbox_true_full":model.ckbool}' @click='ckFunc(model)' treenode_check=""></span>
-					<span class="node_name" :class='aClassVal' @click='Func(model)' >{{model.name}}</span>
-					<!--新增
-					<span  v-show='model.hover' title='新增' class="button add" @click="addNode(model)"></span>-->
-					<!--删除
-				    <span v-show='model.hover' title='删除' class="button remove" @click="delNode(model)"></span>-->
-				    <!--上移
-				    <span v-show='model.hover' title='上移' class="button up" @click="upNode(model)"></span>-->
-				    <!--下移
-				    <span v-show='model.hover' title='下移' class="button down" @click="downNode(model)"></span>-->
+            template:
+	            `<li :class="liClassVal">
+					<span :class="spanClassVal" @click='open(model)'></span>
+					<a  @mouseenter='enterFunc(model)' @mouseleave='leaveFunc(model)'  @contextmenu.prevent='cxtmenufunc(model)'>
+					    <span :class="{loadSyncNode:model.loadNode==1}" v-if='model.loadNode==1'></span>
+					    <span :class='model.iconClass' v-show='model.iconClass' v-else></span>
+					    <span v-show='ischeck' id="treeDemo_5_check" class="button chk" :class='{"checkbox_false_full":!model.ckbool,"checkbox_true_full":model.ckbool}' @click='ckFunc(model)' treenode_check=""></span>
+						<span class="node_name" :class='aClassVal' @click='Func(model)' >{{model.name}}</span>
+						<!--新增
+						<span  v-show='model.hover' title='新增' class="button add" @click="addNode(model)"></span>-->
+						<!--删除
+					    <span v-show='model.hover' title='删除' class="button remove" @click="delNode(model)"></span>-->
+					    <!--上移
+					    <span v-show='model.hover' title='上移' class="button up" @click="upNode(model)"></span>-->
+					    <!--下移
+					    <span v-show='model.hover' title='下移' class="button down" @click="downNode(model)"></span>-->
 
-				    <span  v-show='model.hover' title='添加组织' class="button adds" @click="addGroup(model)"></span>
-				    <span  v-show='model.hover' title='编辑组织' class="button edits"></span>
-				    <span  v-show='model.hover' title='编辑组织' class="button authorize"></span>
-				    <span  v-show='model.hover' title='编辑组织' class="button dels"></span>
-				</a>
+					    <span  v-show='model.hover' title='添加组织' class="button adds" @click="addGroup(model)"></span>
+					    <span  v-show='model.hover' title='编辑组织' class="button edits"></span>
+					    <span  v-show='model.hover && model.pId != 0' title='授权组织' class="button authorize"></span>
+					    <span  v-show='model.hover && model.pId != 0' title='删除组织' class="button dels"></span>
+					</a>
 
-				<ul :class="ulClassVal" v-show='model.isFolder'>
-					<ztree-item v-for="(item,i) in model.children" :key='i' :callback='callback' :expandfunc='expandfunc' :cxtmenufunc='cxtmenufunc' :model.sync="item" :num.sync='i' root='1' :nodes.sync='model.children.length' :ischeck='ischeck' :trees.sync='trees'></ztree-item>
-				</ul>
-			</li>`
+					<ul :class="ulClassVal" v-show='model.isFolder'>
+						<ztree-item v-for="(item,i) in model.children" :key='i' :callback='callback' :expandfunc='expandfunc' :cxtmenufunc='cxtmenufunc' :model.sync="item" :num.sync='i' root='1' :nodes.sync='model.children.length' :ischeck='ischeck' :trees.sync='trees'></ztree-item>
+					</ul>
+				</li>`
 		}
 	},
 	update(){

@@ -12,7 +12,7 @@
           <!--左盒子-->
           <div class="group_tree_wrap">
             <div class="group_tree_box">
-              <vue-ztree :list.sync='ztreeDataSource' :func='nodeClick' :is-open='true' :is-check='false' :is-icon="true"></vue-ztree>
+              <vue-ztree :list.sync='ztreeDataSource' :func='nodeClick' :is-open='true' :is-check='false'></vue-ztree>
             </div>
           </div>
           <!--右边盒子-->
@@ -332,8 +332,11 @@ export default {
     traversezTreeData:function (data) {
       var zTreeData = [];
       for(let i in data){
-         let parentData = data[i];
+        let parentData = data[i];
+        //console.log('--------parentData---------');
+        //console.log(parentData);
         parentData.children = [];
+        parentData.ico = true;
         parentData.parentId = parentData.pId;
         for(let j in data){
           if(parentData.id == data[j].pId){
@@ -344,6 +347,8 @@ export default {
       }
       data[0].clickNode = true;
       zTreeData[0] = data[0];
+      console.log('--------data[0]---------');
+      console.log(data[0]);
       return zTreeData;
     }
   },
