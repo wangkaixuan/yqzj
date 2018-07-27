@@ -12,7 +12,7 @@
           <!--左盒子-->
           <div class="group_tree_wrap">
             <div class="group_tree_box">
-              <vue-ztree :list.sync='ztreeDataSource' :func='nodeClick' :is-open='true' :is-check='false'></vue-ztree>
+              <vue-ztree :list.sync='ztreeDataSource' :func='nodeClick' :is-open='true' :is-check='false' @addGroup = "addGroup"></vue-ztree>
             </div>
           </div>
           <!--右边盒子-->
@@ -59,7 +59,7 @@
 				<!-- Form 添加组织 -->
 				<el-button type="text" @click="dialogFormVisible = true">打开嵌套表单的 Dialog</el-button>
 
-				<el-dialog :model="form" title="添加组织" :visible.sync="dialogFormVisible" 
+				<el-dialog :model="form" title="添加组织" :visible.sync="dialogFormVisible"
 				:close-on-click-modal=false  custom-class="add_group" @close="closeDialog" width="560px">
 				  <el-form :model="form" ref="form" :rules="rules" :label-position="labelPosition" :label-width="formLabelWidth">
 				    <el-form-item label="组织名称" prop="name">
@@ -106,7 +106,7 @@
                     <template slot="title">
                       一致性 Consistency <el-checkbox :indeterminate="authorizeItems.isIndeterminate" v-model="authorizeItems.checkAll" @change="handleCheckAllChange">全选</el-checkbox>
                     </template>
-                    
+
                     <div style="margin: 15px 0;"></div>
                     <el-checkbox-group v-model="authorizeItems.checkedCities" @change="handleCheckedCitiesChange">
                       <el-checkbox v-for="city in authorizeItems.cities" :label="city" :key="city">{{city}}</el-checkbox>
@@ -175,7 +175,7 @@ export default {
         delivery: false,
       },
       formLabelWidth: '100px',
-      
+
       num1: 0,
       rules: {
         name: [
@@ -249,7 +249,7 @@ export default {
         alreadyUser: 0,
         remaindUser: 0
       }
-    }; 
+    };
   },
 	components:{
     vueZtree,
@@ -283,7 +283,7 @@ export default {
           return false;
         }
       });
-      
+
     },
     handleCheckAllChange(val) {
       this.authorizeItems.checkedCities = val ? cityOptions : [];
@@ -326,7 +326,9 @@ export default {
       }
     },
     addGroup: function (model) {
-      console.log(this);
+      console.log("groupManagement--------------------------------------------");
+      console.log(model);
+      console.log(model.name);
     },
     //简单树转换复杂树
     traversezTreeData:function (data) {
@@ -373,16 +375,16 @@ export default {
         _this.checkSetMealUse.alreadyDatanode = res.data.result.data.alreadyDatanode;
         //监测单位数--剩余
         _this.checkSetMealUse.remaindDatanode = res.data.result.data.maxDatanode - res.data.result.data.alreadyDatanode;
-        //人员数--总数 
+        //人员数--总数
         _this.checkSetMealUse.maxUser = res.data.result.data.maxUser;
-        //人员数--已用 
+        //人员数--已用
         _this.checkSetMealUse.alreadyUser = res.data.result.data.alreadyUser;
-        //人员数--剩余 
+        //人员数--剩余
         _this.checkSetMealUse.remaindUser = res.data.result.data.maxUser - res.data.result.data.alreadyUser;
       }
     }).catch(err=>{
         console.log(err,'请求失败！')
-    });   
+    });
   }
 
 
@@ -443,7 +445,7 @@ export default {
   width: 100%;
   margin: 12px auto 0;
   padding-bottom: 20px;
-  
+
 }
 .group_tree_wrap {
   width: 240px;
@@ -559,7 +561,7 @@ export default {
 }
 .authorize_company_box p {
   color: #666;
-  font-size: 16px;   
+  font-size: 16px;
 }
 .authorize_company_box h3 {
   color: #333;
@@ -575,7 +577,7 @@ export default {
     width: 240px;
 }
 .authorize_right{
-	
+
 }
 .authorize_width {
   width: 498px;

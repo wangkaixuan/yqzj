@@ -14,9 +14,9 @@
           </div>
           <!--列表-->
           <div class="pm_wary">
-            <div class="pm_search"><p><input name="scarchinfo" value="" placeholder="请输入登录帐号或姓名或邮箱或微信" type="text">
-              <i></i></p>
-              <p>登录帐号　<a href="javascript:void (0)" class="hover">不限</a>　&nbsp;<a href="javascript:void (0)" class="">启用</a>　&nbsp;<a href="javascript:void (0)" class="">停用</a></p>
+            <div class="pm_search">
+              <p><input type="text" name="scarchinfo" value="" v-model="dataParameter.retrievalName" placeholder="请输入登录帐号或姓名或邮箱或微信"> <i v-on:click="searchOrgInfo(1)"></i></p>
+              <p>登录帐号　<a href="javascript:void (0)" :class="[dataParameter.state == '' ? 'hover': '']" v-on:click="searchOrgInfo(2,'')">不限</a>　&nbsp;<a href="javascript:void (0)" :class="[dataParameter.state == '1' ? 'hover': '']" v-on:click="searchOrgInfo(2,'1')">启用</a>　&nbsp;<a href="javascript:void (0)" :class="[dataParameter.state == '0' ? 'hover': '']" v-on:click="searchOrgInfo(2,'0')">停用</a></p>
             </div>
             <!--列表-->
             <div class="pm_list" v-if="orguserData.length > 0">
@@ -84,10 +84,10 @@
           <el-input v-model="form.userName" auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item label="密码" :label-width="formLabelWidth">
-          <el-input v-model="form.password" auto-complete="off"></el-input>
+          <el-input  type="password" v-model="form.password" auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item label="确认密码" :label-width="formLabelWidth">
-          <el-input v-model="form.passwordtow" auto-complete="off"></el-input>
+          <el-input  type="password" v-model="form.passwordtow" auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item label="邮箱" :label-width="formLabelWidth">
           <el-input v-model="form.email" auto-complete="off"></el-input>
@@ -123,7 +123,7 @@
             pages:1,                         //页数
             keypage:0,                       //循环键值页数
             dataParameter:{
-              pageSize:'10',              //每页条数
+              pageSize:'2',              //每页条数
               orgIds:'',                  //集团id
               pageNum:1,                  //当前页数
               retrievalName :'',          //检束
@@ -159,6 +159,7 @@
         this.nodeModel = m;  // 当前点击节点对象
         this.parentNodeModel = parent; //当前点击节点父亲对象
         this.dataParameter.orgIds = m.id;
+        this.dataParameter.retrievalName = '';
         this.getOrgUserInfo();
 
 //        console.log(m);
@@ -169,6 +170,25 @@
 //        this.findById(this.ztreeDataSource,m.parentId)
 //        this.dataList= this.dataList.reverse();
 //        this.dataList.push(m);
+      },
+      searchOrgInfo:function (s,n) {
+        //搜索
+        if(s === 1){
+          //输入框搜索
+//          var scarchinfo = $('[name=scarchinfo]').val().replace(/(^\s*)|(\s*$)/g,'');
+          this.issearch = true;
+          //设置参数
+          this.dataParameter.orgIds = '';
+          this.dataParameter.pageNum = 1;
+          //查数据
+          this.getOrgUserInfo();
+        }else if(s === 2){
+          //登录状态搜索
+          this.dataParameter.state = n;
+          this.dataParameter.pageNum = 1;
+          //查数据
+          this.getOrgUserInfo();
+        }
       },
       addRy:function () {
           //添加显示弹层
@@ -259,15 +279,32 @@
         var _this = this;
         getOrgUserList(_this.dataParameter).then(function (res) {
             if(res.data.result.data){
-              _this.orguserData = res.data.result.data
+              _this.orguserData = res.data.result.data || [];
+              _this.pages =  Math.ceil(res.data.result.total/res.data.result.pageSize);      //页数
+              _this.keypage = parseInt(_this.dataParameter.pageNum-1+'0');
             }else{
               _this.orguserData = [];
+              _this.pages = 0;                                                //页数
+              _this.keypage = 0;
             }
-
         }).catch(err=>{
             console.log(err,'请求失败');
         })
       },
+//      traverseList:function (r) {
+//        //设置一下当前登录手机号
+//        if(r.length > 0){
+//          var dqs = VueCookies.get('DANGQIANS');
+//          for(var i in r){
+//            var account = md5("_"+r[i].account);
+//            if(dqs === account){
+//              r[i].isDQ = 1;
+//              break;
+//            }
+//          }
+//        }
+//        return r;
+//      },
       updateOrg:function (id,account,orgname,email,wechat) {
           //编辑
       },

@@ -162,7 +162,7 @@
 	<div class="ztree_content_wrap" v-if='treeDataSource.length>0'>
 		<div class="zTreeDemoBackground left">
 			<ul class="ztree">
-				<ztree-item v-for='(m,i) in treeDataSource' :key='i' :model.sync="m" :num.sync='i' root='0' :nodes.sync='treeDataSource.length' :ischeck='isCheck' :callback='func' :expandfunc='expand' :cxtmenufunc='contextmenu' :trees.sync='treeDataSource'></ztree-item>
+				<ztree-item v-for='(m,i) in treeDataSource' :key='i' :model.sync="m" :num.sync='i' root='0' :nodes.sync='treeDataSource.length' :ischeck='isCheck' :callback='func' :expandfunc='expand' :cxtmenufunc='contextmenu' :trees.sync='treeDataSource' @addGroup="addGroup"></ztree-item>
 			</ul>
 		</div>
 	</div>
@@ -260,7 +260,10 @@ export default{
             recurrenceFunc(tempList);
 
             this.treeDataSource = tempList;
-        }
+        },
+    addGroup(m){
+      this.$emit('addGroup',m)
+    }
 	},
 	components:{
 		// 组件
@@ -488,7 +491,11 @@ export default{
 			            this.parentNodeModel.splice(index+1,0,model[0]);
 			          }
 			       }
-			    }
+			    },
+            addGroup:function (m) {
+			        console.log("孙子-------------------------------");
+              this.$emit('addGroup',m)
+            }
         	},
         	computed:{
         		// 给（根 和 子树）赋值不同的样式
@@ -568,7 +575,7 @@ export default{
 					</a>
 
 					<ul :class="ulClassVal" v-show='model.isFolder'>
-						<ztree-item v-for="(item,i) in model.children" :key='i' :callback='callback' :expandfunc='expandfunc' :cxtmenufunc='cxtmenufunc' :model.sync="item" :num.sync='i' root='1' :nodes.sync='model.children.length' :ischeck='ischeck' :trees.sync='trees'></ztree-item>
+						<ztree-item v-for="(item,i) in model.children" :key='i' :callback='callback' :expandfunc='expandfunc' :cxtmenufunc='cxtmenufunc' :model.sync="item" :num.sync='i' root='1' :nodes.sync='model.children.length' :ischeck='ischeck' :trees.sync='trees' @addGroup="addGroup"></ztree-item>
 					</ul>
 				</li>`
 		}
